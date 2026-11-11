@@ -1,0 +1,46 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# ---- 工具链二进制 / 安装包 / 下载缓存（体积大，不入库）----
+tools/PrePoMax/
+tools/CalculiX-2.23/
+tools/downloads/
+tools/安装包/
+tools/python_libs/
+tools/选材/.mplcache/
+tools/测试/regression/
+
+# ---- 求解中间文件 / 大结果（需要留档时手动复制到 05-报告 或另存）----
+*.12d
+*.cvg
+*.sta
+*.dat
+*.out
+spooles.out
+*.frd
+*.msh
+*.pmx
+*.pmx~
+*.FCStd1
+
+# ---- 带孔板算例：可再生成的网格文件（保留 plate_hole_l2.inp 作回归基线）----
+算例/带孔板/kt_*.inp
+算例/带孔板/plate_hole_ccx.inp
+算例/带孔板/plate_hole_coarse*.inp
+算例/带孔板/plate_hole_fine*.inp
+
+# ---- 系统文件 ----
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# ---- matplotlib 缓存 ----
+.mplcache/
+
+# ---- pip 临时目录（沙箱残留，忽略）----
+tools/tmp/
+
+# ---- 归档目录（调试中间文件，不入库）----
+归档/

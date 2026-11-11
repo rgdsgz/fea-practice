@@ -1,0 +1,126 @@
+﻿name,category,subcategory,kind,density_kg_m3,E_GPa,nu,yield_MPa,uts_MPa,shear_GPa,elongation_pct,cte_1_K,k_W_mK,cost,sigma_f_MPa,b,Se_MPa,source,source_file
+Default,Standard,,,,,,,,,,,,,,,,FreeCAD bundled material card (.FCMat),Default.FCMat
+Concrete-EN-C35/45,Aggregate,,,2500.0,32.0,0.17,,,,,,,,,,,FreeCAD bundled material card (.FCMat),Aggregate\Concrete-EN-C35_45.FCMat
+Concrete,Aggregate,,,2400.0,32.0,0.17,,,,,,,,,,,FreeCAD bundled material card (.FCMat),Aggregate\Concrete-Generic.FCMat
+Reinforcement-Harry,Aggregate,,,7850.0,210.0,0.3,315.0,,,,,,,,,,FreeCAD bundled material card (.FCMat),Aggregate\Reinforcement-FIB-B500.FCMat
+Graphite,Carbon,,Solid,1750.0,0.0117,0.2,,34.0,,,8e-06,96.0,,,,,FreeCAD bundled material card (.FCMat),Carbon\Graphite.FCMat
+Glass-E,Glass,,,2580.0,,,,3445.0,,,,,,,,,FreeCAD bundled material card (.FCMat),Glass\Glass-E-GlassFibre.FCMat
+Glass,Glass,,,,72.0,0.22,,,,,9e-06,,,,,,FreeCAD bundled material card (.FCMat),Glass\Glass-Generic.FCMat
+Glass-S2,Glass,,,2460.0,,,,4890.0,,,,,,,,,FreeCAD bundled material card (.FCMat),Glass\Glass-S2-GlassFibre.FCMat
+Invar Generic,Metal,Alloys,Nickel Iron Alloy,8150.0,140.0,0.29,,600.0,56.0,,1.2499999999999999e-06,13.5,,,,,FreeCAD bundled material card (.FCMat),Metal\Alloys\Invar-Generic.FCMat
+AlMg3F24,Metal,Aluminum,Aluminium,2700.0,70.0,0.3,180.0,250.0,27.0,5.0,2.3e-05,150.0,,,,,FreeCAD bundled material card (.FCMat),Metal\Aluminum\AlMg3F24.FCMat
+AlMgSi1F31,Metal,Aluminum,Aluminium,2700.0,70.0,0.3,260.0,310.0,27.0,10.0,2.3e-05,160.0,,,,,FreeCAD bundled material card (.FCMat),Metal\Aluminum\AlMgSi1F31.FCMat
+Aluminum 6061-T6,Metal,Aluminum,Aluminium,2700.0,68.9,0.33,276.0,310.0,26.0,,2.36e-05,167.0,,,,,FreeCAD bundled material card (.FCMat),Metal\Aluminum\Aluminum-6061-T6.FCMat
+Aluminum 7075-T6,Metal,Aluminum,Aluminium,2810.0,71.7,0.33,503.0,572.0,26.9,,2.36e-05,130.0,,,,,FreeCAD bundled material card (.FCMat),Metal\Aluminum\Aluminum-7075-T6.FCMat
+Aluminum Generic,Metal,Aluminum,Aluminium,2700.0,70.0,0.35,,310.0,25.0,,2.31e-05,237.0,,,,,FreeCAD bundled material card (.FCMat),Metal\Aluminum\Aluminum-Generic.FCMat
+"AlZn4,5Mg1F35",Metal,Aluminum,Aluminium,2700.0,70.0,0.3,290.0,350.0,27.0,10.0,2.3e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Aluminum\AlZn4-5Mg1F35.FCMat
+Copper Generic,Metal,Copper,Copper,8960.0,119.0,0.343,33.3,210.0,46.0,,1.6499999999999998e-05,398.0,,,,,FreeCAD bundled material card (.FCMat),Metal\Copper\Copper-Generic.FCMat
+Iron Generic,Metal,Iron,Iron,7874.0,211.0,0.29,428.0,497.0,82.0,,1.18e-05,80.4,,,,,FreeCAD bundled material card (.FCMat),Metal\Iron\Iron-Generic.FCMat
+CalculiX-Steel,Metal,Steel,,,210.0,0.3,,,,,1.2e-05,43.0,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\CalculiX-Steel.FCMat
+15CrNi6,Metal,Steel,Case-hardened steel,7800.0,210.0,0.3,680.0,1000.0,81.0,9.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-15CrNi6.FCMat
+17CrNiMo6,Metal,Steel,Case-hardened steel,7800.0,210.0,0.3,830.0,1150.0,81.0,8.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-17CrNiMo6.FCMat
+1C22,Metal,Steel,Heat-treatable steel,7800.0,210.0,0.3,230.0,400.0,81.0,27.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-1C22.FCMat
+1C35,Metal,Steel,Heat-treatable steel,7800.0,210.0,0.3,300.0,480.0,81.0,21.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-1C35.FCMat
+1C45,Metal,Steel,Heat-treatable steel,7800.0,210.0,0.3,340.0,580.0,81.0,14.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-1C45.FCMat
+1C60,Metal,Steel,Heat-treatable steel,7800.0,210.0,0.3,380.0,650.0,81.0,11.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-1C60.FCMat
+20NiCrMo2,Metal,Steel,Case-hardened steel,7800.0,210.0,0.3,630.0,900.0,81.0,10.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-20NiCrMo2.FCMat
+28Mn6,Metal,Steel,Heat-treatable steel,7800.0,210.0,0.3,590.0,800.0,81.0,13.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-28Mn6.FCMat
+2C10,Metal,Steel,Case-hardened steel,7800.0,210.0,0.3,390.0,640.0,81.0,0.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-2C10.FCMat
+30CrNiMo8,Metal,Steel,Heat-treatable steel,7800.0,210.0,0.3,1050.0,1250.0,81.0,9.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-30CrNiMo8.FCMat
+34CrNiMo6,Metal,Steel,Heat-treatable steel,7800.0,210.0,0.3,1000.0,1200.0,81.0,9.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-34CrNiMo6.FCMat
+36CrNiMo4,Metal,Steel,Heat-treatable steel,7800.0,210.0,0.3,900.0,1100.0,81.0,10.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-36CrNiMo4.FCMat
+36NiCrMo16,Metal,Steel,Heat-treatable steel,7800.0,210.0,0.3,1050.0,1250.0,81.0,9.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-36NiCrMo16.FCMat
+3C15,Metal,Steel,Case-hardened steel,7800.0,210.0,0.3,440.0,740.0,81.0,0.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-3C15.FCMat
+3C22,Metal,Steel,Heat-treatable steel,7800.0,210.0,0.3,350.0,550.0,81.0,24.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-3C22.FCMat
+3C35,Metal,Steel,Heat-treatable steel,7800.0,210.0,0.3,430.0,630.0,81.0,17.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-3C35.FCMat
+3V45,Metal,Steel,Heat-treatable steel,7800.0,210.0,0.3,500.0,700.0,81.0,14.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-3V45.FCMat
+C10,Metal,Steel,Case-hardened steel,7800.0,210.0,0.3,380.0,650.0,81.0,16.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-C10.FCMat
+C15,Metal,Steel,Case-hardened steel,7800.0,210.0,0.3,430.0,750.0,81.0,14.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-C15.FCMat
+C22E,Metal,Steel,Heat-treatable steel,7800.0,210.0,0.3,340.0,500.0,81.0,20.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-C22E.FCMat
+C25E,Metal,Steel,Heat-treatable steel,7800.0,210.0,0.3,370.0,550.0,81.0,19.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-C25E.FCMat
+C30E,Metal,Steel,Heat-treatable steel,7800.0,210.0,0.3,400.0,600.0,81.0,18.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-C30E.FCMat
+C40E,Metal,Steel,Heat-treatable steel,7800.0,210.0,0.3,460.0,650.0,81.0,16.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-C40E.FCMat
+C50E,Metal,Steel,Heat-treatable steel,7800.0,210.0,0.3,520.0,750.0,81.0,13.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-C50E.FCMat
+C55E,Metal,Steel,Heat-treatable steel,7800.0,210.0,0.3,550.0,800.0,81.0,13.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-C55E.FCMat
+C60E,Metal,Steel,Heat-treatable steel,7800.0,210.0,0.3,580.0,850.0,81.0,13.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-C60E.FCMat
+E295 GC,Metal,Steel,Mild steel,7800.0,210.0,0.3,420.0,590.0,81.0,0.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-E295-GC.FCMat
+E295,Metal,Steel,Mild steel,7800.0,210.0,0.3,295.0,490.0,81.0,20.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-E295.FCMat
+E335 GC,Metal,Steel,Mild steel,7800.0,210.0,0.3,490.0,690.0,81.0,0.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-E335-GC.FCMat
+E335,Metal,Steel,Mild steel,7800.0,210.0,0.3,335.0,590.0,81.0,16.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-E335.FCMat
+E360 GC,Metal,Steel,Mild steel,7800.0,210.0,0.3,560.0,780.0,81.0,0.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-E360-GC.FCMat
+E360,Metal,Steel,Mild steel,7800.0,210.0,0.3,360.0,690.0,81.0,11.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-E360.FCMat
+EN-GJL-100,Metal,Steel,Cast iron,7200.0,88.0,0.3,,100.0,34.0,0.0,1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-EN-GJL-100.FCMat
+EN-GJL-150,Metal,Steel,Cast iron,7200.0,95.0,0.3,98.0,150.0,37.0,0.0,1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-EN-GJL-150.FCMat
+EN-GJL-200,Metal,Steel,Cast iron,7200.0,105.0,0.3,130.0,200.0,40.0,0.0,1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-EN-GJL-200.FCMat
+EN-GJL-250,Metal,Steel,Cast iron,7200.0,115.0,0.3,165.0,250.0,44.0,0.0,1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-EN-GJL-250.FCMat
+EN-GJL-300,Metal,Steel,Cast iron,7200.0,125.0,0.3,195.0,300.0,48.0,0.0,1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-EN-GJL-300.FCMat
+EN-GJL-350,Metal,Steel,Cast iron,7200.0,135.0,0.3,228.0,350.0,52.0,15.0,1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-EN-GJL-350.FCMat
+EN-GJMB-350-10,Metal,Steel,Cast iron,7200.0,175.0,0.3,200.0,350.0,67.0,10.0,1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-EN-GJMB-350-10.FCMat
+EN-GJMB-550-4,Metal,Steel,Cast iron,7200.0,175.0,0.3,340.0,550.0,67.0,2.0,1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-EN-GJMB-550-4.FCMat
+EN-GJMB-650-2,Metal,Steel,Cast iron,7200.0,175.0,0.3,430.0,650.0,67.0,2.0,1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-EN-GJMB-650-2.FCMat
+EN-GJMW-350-4,Metal,Steel,Cast iron,7200.0,175.0,0.3,,350.0,67.0,4.0,1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-EN-GJMW-350-4.FCMat
+EN-GJMW-360-12,Metal,Steel,Cast iron,7200.0,175.0,0.3,200.0,380.0,67.0,5.0,1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-EN-GJMW-360-12.FCMat
+EN-GJMW-400-5,Metal,Steel,Cast iron,7200.0,175.0,0.3,220.0,400.0,67.0,7.0,1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-EN-GJMW-400-5.FCMat
+EN-GJMW-450-7,Metal,Steel,Cast iron,7200.0,175.0,0.3,260.0,450.0,67.0,10.0,1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-EN-GJMW-450-7.FCMat
+EN-GJS-400-15,Metal,Steel,Cast iron,7200.0,167.0,0.3,250.0,400.0,65.0,15.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-EN-GJS-400-15.FCMat
+EN-GJS-500-7,Metal,Steel,Cast iron,7200.0,170.0,0.3,320.0,500.0,66.0,2.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-EN-GJS-500-7.FCMat
+EN-GJS-600-3,Metal,Steel,Cast iron,7200.0,177.0,0.3,370.0,600.0,67.0,2.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-EN-GJS-600-3.FCMat
+EN-GJS-700-2,Metal,Steel,Cast iron,7200.0,180.0,0.3,420.0,700.0,67.0,2.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-EN-GJS-700-2.FCMat
+EN-GJS-800-1,Metal,Steel,Cast iron,7200.0,180.0,0.3,480.0,800.0,67.0,2.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-EN-GJS-800-1.FCMat
+G16Mn5,Metal,Steel,Cast steel,7800.0,210.0,0.3,260.0,430.0,81.0,0.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-G16Mn5.FCMat
+G200,Metal,Steel,Cast steel,7800.0,210.0,0.3,200.0,380.0,81.0,25.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-G200.FCMat
+G20Mn5,Metal,Steel,Cast steel,7800.0,210.0,0.3,360.0,500.0,81.0,0.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-G20Mn5.FCMat
+G230,Metal,Steel,Cast steel,7800.0,210.0,0.3,230.0,450.0,81.0,22.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-G230.FCMat
+G260,Metal,Steel,Cast steel,7800.0,210.0,0.3,260.0,520.0,81.0,18.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-G260.FCMat
+G300,Metal,Steel,Cast steel,7800.0,210.0,0.3,300.0,600.0,81.0,15.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-G300.FCMat
+G30Mn5,Metal,Steel,Cast steel,7800.0,210.0,0.3,400.0,520.0,81.0,14.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-G30Mn5.FCMat
+Steel-Generic,Metal,Steel,,,200.0,0.3,,,,,1.2e-05,50.0,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-Generic.FCMat
+S185,Metal,Steel,Mild steel,7800.0,210.0,0.3,190.0,310.0,81.0,18.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-S185.FCMat
+S235JO,Metal,Steel,Mild steel,7800.0,210.0,0.3,235.0,360.0,81.0,26.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-S235JO.FCMat
+S235JR,Metal,Steel,Mild steel,7800.0,210.0,0.3,235.0,360.0,81.0,26.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-S235JR.FCMat
+S235JRG1,Metal,Steel,Mild steel,7800.0,210.0,0.3,235.0,360.0,81.0,26.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-S235JRG1.FCMat
+S260NC,Metal,Steel,Cold forming steel,7800.0,210.0,0.3,280.0,350.0,81.0,30.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-S260NC.FCMat
+S275JO,Metal,Steel,Mild steel,7800.0,210.0,0.3,275.0,430.0,81.0,22.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-S275JO.FCMat
+S275JR,Metal,Steel,Mild steel,7800.0,210.0,0.3,275.0,430.0,81.0,22.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-S275JR.FCMat
+S275N,Metal,Steel,Fine grain steel,7800.0,210.0,0.3,275.0,370.0,81.0,24.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-S275N.FCMat
+S335JO,Metal,Steel,Mild steel,7800.0,210.0,0.3,355.0,510.0,81.0,22.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-S335JO.FCMat
+S335JR,Metal,Steel,Mild steel,7800.0,210.0,0.3,355.0,510.0,81.0,22.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-S335JR.FCMat
+S335N,Metal,Steel,Fine grain steel,7800.0,210.0,0.3,355.0,470.0,81.0,22.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-S335N.FCMat
+S340MC,Metal,Steel,Cold forming steel,7800.0,210.0,0.3,340.0,480.0,81.0,25.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-S340MC.FCMat
+S355J2G3,Metal,Steel,Mild steel,7800.0,210.0,0.3,355.0,510.0,81.0,22.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-S355J2G3.FCMat
+S380MC,Metal,Steel,Cold forming steel,7800.0,210.0,0.3,380.0,520.0,81.0,23.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-S380MC.FCMat
+S420MC,Metal,Steel,Cold forming steel,7800.0,210.0,0.3,420.0,550.0,81.0,21.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-S420MC.FCMat
+S420N,Metal,Steel,Fine grain steel,7800.0,210.0,0.3,420.0,520.0,81.0,19.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-S420N.FCMat
+S460MC,Metal,Steel,Cold forming steel,7800.0,210.0,0.3,460.0,590.0,81.0,19.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-S460MC.FCMat
+S460N,Metal,Steel,Fine grain steel,7800.0,210.0,0.3,460.0,550.0,81.0,17.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-S460N.FCMat
+S500MC,Metal,Steel,Cold forming steel,7800.0,210.0,0.3,500.0,620.0,81.0,17.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-S500MC.FCMat
+S550MC,Metal,Steel,Cold forming steel,7800.0,210.0,0.3,550.0,680.0,81.0,15.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-S550MC.FCMat
+S690MC,Metal,Steel,Cold forming steel,7800.0,210.0,0.3,690.0,790.0,81.0,15.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-S690MC.FCMat
+St 37-2K,Metal,Steel,Mild steel,7800.0,210.0,0.3,320.0,460.0,81.0,0.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-St-37-2K.FCMat
+St E 255,Metal,Steel,Fine grain steel,7800.0,210.0,0.3,260.0,360.0,81.0,0.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-St-E-255.FCMat
+St E 315,Metal,Steel,Fine grain steel,7800.0,210.0,0.3,320.0,440.0,81.0,0.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-St-E-315.FCMat
+St E 380,Metal,Steel,Fine grain steel,7800.0,210.0,0.3,380.0,500.0,81.0,0.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-St-E-380.FCMat
+St E 460,Metal,Steel,Fine grain steel,7800.0,210.0,0.3,460.0,560.0,81.0,0.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-St-E-460.FCMat
+St E 500,Metal,Steel,Fine grain steel,7800.0,210.0,0.3,500.0,610.0,81.0,0.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-St-E-500.FCMat
+X2CrNiMoN17-13-3,Metal,Steel,Stainless steel,7800.0,200.0,0.3,295.0,580.0,81.0,35.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-X2CrNiMoN17-13-3.FCMat
+X2CrNiN24-4,Metal,Steel,Stainless steel,7800.0,200.0,0.3,400.0,600.0,81.0,25.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-X2CrNiN24-4.FCMat
+X39CrMo17-1,Metal,Steel,Stainless steel,7800.0,213.0,0.3,500.0,750.0,81.0,12.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-X39CrMo17-1.FCMat
+X3CrNiMo13-14,Metal,Steel,Stainless steel,7800.0,216.0,0.3,800.0,900.0,81.0,11.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-X3CrNiMo13-14.FCMat
+X5CrNi18-10,Metal,Steel,Stainless steel,7800.0,200.0,0.3,210.0,520.0,81.0,40.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-X5CrNi18-10.FCMat
+X5CrNiMo17-12-2,Metal,Steel,Stainless steel,7800.0,180.0,0.3,220.0,520.0,68.0,40.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-X5CrNiMo17-12-2.FCMat
+X6CrNiTi18-10,Metal,Steel,Stainless steel,7800.0,200.0,0.3,200.0,500.0,81.0,40.0,1.1e-05,,,,,,FreeCAD bundled material card (.FCMat),Metal\Steel\Steel-X6CrNiTi18-10.FCMat
+Ti-6Al-4V (Grade 5),Metal,Titanium,Titanium,4430.0,114.0,0.33,910.0,975.5,44.0,,8.599999999999999e-06,6.7,,,,,FreeCAD bundled material card (.FCMat),Metal\Titanium\Ti-6Al-4V.FCMat
+ABS,Thermoplast,,,1060.0,2.3,0.37,44.1,38.8,,,9.3e-05,0.158,,,,,FreeCAD bundled material card (.FCMat),Thermoplast\ABS-Generic.FCMat
+Acrylic Glass,Thermoplast,,,1160.0,2.55,0.38,73.7,57.7,1.08,,7.5e-05,0.193,,,,,FreeCAD bundled material card (.FCMat),Thermoplast\Acrylic-Glass-Generic.FCMat
+Polyamide 6,Thermoplast,,,1150.0,2.93,0.39,70.5,75.5,,,8.2e-05,0.262,,,,,FreeCAD bundled material card (.FCMat),Thermoplast\PA6-Generic.FCMat
+PC-Molded,Thermoplast,,,,,0.37,,,,,,,,,,,FreeCAD bundled material card (.FCMat),Thermoplast\PC-Molded.FCMat
+PEEK-Generic,Thermoplast,,,1340.0,3.88,,97.1,98.9,,,5.29e-05,0.299,,,,,FreeCAD bundled material card (.FCMat),Thermoplast\PEEK-Generic.FCMat
+PET,Thermoplast,,,1380.0,3.15,0.36,62.8,38.8,0.0385,,7.2e-05,0.181,,,,,FreeCAD bundled material card (.FCMat),Thermoplast\PET-Generic.FCMat
+PLA,Thermoplast,,,1240.0,3.64,0.36,35.9,26.4,,,4.1e-05,0.13,,,,,FreeCAD bundled material card (.FCMat),Thermoplast\PLA-Generic.FCMat
+PMMA-Generic,Thermoplast,,,1170.0,2.93,,60.5,64.6,,,7.07e-05,0.199,,,,,FreeCAD bundled material card (.FCMat),Thermoplast\PMMA-Generic.FCMat
+POM-Copolymer-Generic,Thermoplast,,,1410.0,2.66,0.363,59.8,56.5,,,0.000109,0.304,,,,,FreeCAD bundled material card (.FCMat),Thermoplast\POM-Copolymer-Generic.FCMat
+POM-Homopolymer-Generic,Thermoplast,,,1420.0,3.05,0.37,67.3,63.8,,,0.000104,0.311,,,,,FreeCAD bundled material card (.FCMat),Thermoplast\POM-Homopolymer-Generic.FCMat
+Polypropylene,Thermoplast,,,916.0,1.47,0.44,32.8,79.7,,,0.000123,0.249,,,,,FreeCAD bundled material card (.FCMat),Thermoplast\PP-Generic.FCMat
+PTFE,Thermoplast,,,2070.0,0.564,0.46,20.5,34.6,,,0.000108,0.263,,,,,FreeCAD bundled material card (.FCMat),Thermoplast\PTFE-Generic.FCMat
+PVC,Thermoplast,,,1380.0,2.8,0.38,,50.0,,,7.5e-05,0.15,,,,,FreeCAD bundled material card (.FCMat),Thermoplast\PVC-Generic.FCMat
+Wood,Wood,,,,12.0,0.05,,,,,,,,,,,FreeCAD bundled material card (.FCMat),Wood\Wood-Generic.FCMat
