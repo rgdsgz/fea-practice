@@ -110,6 +110,7 @@ powershell -ExecutionPolicy Bypass -File D:\E\项目\tools\regression_test.ps1
 - **每个项目**：几何/网格/计算/结果/报告分开；最终在 `05-报告` 写 `.md` 计算书。
 - **材料来源**：记录牌号+标准+数据出处；疲劳参数单独注明来源。
 - **不要**随便更新工具链（会破坏已验证基线）；更新前看 `AGENTS.md` §7。
+- **说「检查更新」时**：我会检查本工作区全部工具（FreeCAD、PrePoMax、CalculiX、Gmsh、插件、networkx 等）的版本，联网对比最新稳定版并**自行完成更新**，最后跑回归测试——无需你再确认（除非涉及主版本大改/预发布）。流程见 `AGENTS.md` §7。
 
 ## 文档
 

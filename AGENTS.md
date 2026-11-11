@@ -81,11 +81,74 @@ D:\E\项目\
 8. **FreeCAD 的附加组件管理器**已设为「无代理」（`proxy_type=none`），不要改回 system，否则 addons.freecad.org 会被 GitHubPP 返回 403。
 9. **插件**：Fasteners / SheetMetal / Supplemental-Materials 装在 `%APPDATA%\FreeCAD\v1-1\Mod`；SheetMetal 依赖 networkx 3.5（装在 `AdditionalPythonPackages\py311`）。不要装 `parts_library` 整包。
 
-## 7. 更新策略
+## 7. 更新策略与「检查更新」标准动作
 
-- 版本锁定优先：FreeCAD 1.1.4、PrePoMax 3.0.0、CalculiX 2.23 目前都是最新稳定版。
-- 只在遇到 bug / 需要新功能时更新；更新后跑 `tools\regression_test.ps1`。
-- PrePoMax 更新会重置 `Solver\` 目录 → 需重新替换 CalculiX 2.23。
+基本策略：
+
+- 只跟**稳定版**，不用预发布/周构建/主版本大改（除非用户明确要求）。
+- 更新后必须跑 `tools\regression_test.ps1` 且全绿；失败就回滚刚更新的组件。
+- PrePoMax 更新会重置 `Solver\` 目录 → 更新后必须重新替换成 CalculiX 2.23。
+- 更新完成后把版本号写回本文件 §1 和 `tools\README.md`，并 git commit。
+
+**当用户说「检查更新」/「更新工具」/「看看有没有新版本」时：不要反问，直接执行下面完整流程，自行完成更新。**
+
+### 7.1 检查本地当前版本
+
+| 组件 | 检查命令 |
+|---|---|
+| FreeCAD | `F:\FreeCAD\bin\freecadcmd.exe -c "import FreeCAD;print(FreeCAD.Version())"`（或看安装目录/文件版本） |
+| PrePoMax | `tools\PrePoMax\PrePoMax.exe` 文件版本；或启动后标题栏 |
+| CalculiX | `tools\PrePoMax\Solver\ccx_dynamic.exe -v` |
+| Gmsh | `F:\FreeCAD\bin\gmsh.exe --version` |
+| 插件 | `%APPDATA%\FreeCAD\v1-1\Mod\<插件>\package.xml` 或 `__init__.py` 中的版本号 |
+| networkx | `%APPDATA%\FreeCAD\v1-1\AdditionalPythonPackages\py311\networkx\__init__.py` |
+| 可选库 | `tools\python_libs\`（rainflow 等） |
+
+### 7.2 联网查最新稳定版（必须实际查，不许凭记忆）
+
+| 组件 | 查询地址 |
+|---|---|
+| FreeCAD | GitHub `FreeCAD/FreeCAD` releases / freecad.org（只取正式版，跳过 weekly、rc） |
+| PrePoMax | https://prepomax.fs.um.si/ 下载页（或 GitHub releases） |
+| CalculiX | http://www.dhondt.de/ 的 Windows 版 |
+| Gmsh | https://gmsh.info/ 或 GitHub releases |
+| Fasteners | https://github.com/shaise/FreeCAD_FastenersWB/releases |
+| SheetMetal | https://github.com/shaise/FreeCAD_SheetMetal/releases |
+| Supplemental-Materials | https://github.com/FreeCAD/Supplemental-Materials |
+| networkx | PyPI |
+
+下载途径与代理处理见 §6 第 6、7 条（codeload 直连、PyPI 镜像、GitHubPP 仅代理 GitHub）。
+
+### 7.3 有更新就直接更新（备份 → 下载 → 替换 → 验证）
+
+1. **先备份**：旧目录改名 `<xxx>.bak` 或打包到 `归档\更新备份\`。
+2. **FreeCAD**：大版本更新前备份 `%APPDATA%\FreeCAD`（配置/插件/材料卡都在这）；更新后重跑 `tools\选材\build_materials.py` 重建材料库。
+3. **PrePoMax**：新 zip 覆盖 `tools\PrePoMax\`，随后把 `Solver\ccx_dynamic.exe` 重新替换为 CalculiX 2.23（旧文件保留 `.bak`），确认 MKL dll 齐全。
+4. **CalculiX**：只换 `Solver\ccx_dynamic.exe`，旧版留 `.bak`。
+5. **FreeCAD 插件**：优先改成 git clone 后 `git pull`；目前是 zip 装法，则下载 release zip 覆盖 `Mod\<插件>\`。
+6. **networkx**：wheel/源码装到 `AdditionalPythonPackages\py311`。
+7. 没有新版本就跳过，不要硬装。
+
+### 7.4 回归验证
+
+```powershell
+powershell -ExecutionPolicy Bypass -File D:\E\项目\tools\regression_test.ps1
+```
+
+必须 5/5 全通过。失败则回滚刚更新的组件（用备份），并记录失败原因。
+
+### 7.5 收尾（每次必做）
+
+1. 更新本文件 §1 版本表和 `tools\README.md` 的版本记录；
+2. `git add -A; git commit -m "更新：<组件> x.y -> x.z（回归通过）"`；
+3. 向用户报告：检查了哪些、旧/新版本、跳过了哪些及原因、回归结果。
+
+### 7.6 判断标准
+
+- **值得更新**：安全/崩溃修复、当前版本有 bug、需要新功能。
+- **可选**：仅补丁号变化且与本工作流无关 → 说明后跳过。
+- **默认不更**：预发布、周构建、主版本大改 → 除非用户明确要求。
+
 
 ## 8. 输出习惯
 
