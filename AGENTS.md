@@ -69,6 +69,7 @@ D:\E\项目\
 | 带孔板 Kt（`算例\带孔板`） | Kt_net = 2.42–2.44（理论 2.508，误差 −3%，已网格收敛） |
 | 疲劳脚本（同算例应力） | UTS 400、R=0：σa=50.84 MPa → N=1.98e12，损伤 5.04e-6 |
 | 悬臂梁全流程（`项目\001-悬臂梁静力分析`） | 碳钢 100×10×10 mm、端部 100 N：δ=0.19043 mm（理论 0.19048）、跨中 30.03 MPa（理论 30）、固定端最大 59.31/全场 60.88 MPa（理论 60）；ccx 2.22 与 2.23 结果一致 |
+| L 形支架全流程（`项目\002-L形支架静力分析`） | 底板 100×60×8 + 立板 8×60×80 + R8 + 4×Ø9、顶面 500 N 沿 −X：顶面挠度 0.1525 mm（手算 0.1587，−3.6%）、全场最大 61.68 MPa @ R8 圆角（手算 62.5，−1.3%）、SF=235/61.7=3.8；C3D10 36325 节点、95100 方程 |
 
 ## 6. 已知坑（都是踩过的，别再踩）
 
@@ -83,7 +84,11 @@ D:\E\项目\
 9. **插件**：Fasteners / SheetMetal / Supplemental-Materials 装在 `%APPDATA%\FreeCAD\v1-1\Mod`；SheetMetal 依赖 networkx 3.5（装在 `AdditionalPythonPackages\py311`）。不要装 `parts_library` 整包。
 10. **FreeCAD 1.1 的力方向**：`ConstraintForce.Direction` 是 PropertyLinkSub（指向一条边），不是向量；GUI「方向」框填 `(0,0,-1)` 会报 Invalid syntax，Python 里赋 `App.Vector` 会报 TypeError。正确写法：`cf.Direction=(obj,["Edge1"]); cf.Reversed=True`（选一条与目标方向平行的边）。官方示例见 `F:\FreeCAD\Mod\Fem\femexamples\ccx_cantilever_faceload.py`。
 11. **FreeCAD 1.1 后处理按 SI 单位显示**：位移是 m、应力是 Pa（色标 1.910e-04 = 0.191 mm，6.088e+07 = 60.88 MPa）；`.frd` 内仍是 mm-N-MPa，解析不受影响。
-12. **FreeCAD FEM 求解工作目录默认在系统临时目录**（`C:\Users\...\AppData\Local\Temp\fcfem_*`，沙箱读不了）：求解器面板里把「工作目录」改到项目 `03-计算\`，否则结果文件无法归档。
+12. **FreeCAD FEM 求解工作目录默认在系统临时目录**（`C:\Users\...\AppData\Local\Temp\fcfem_*`，沙箱读不了）：求解器面板里把「工作目录」改到项目 `03-计算\`，否则结果文件无法归档。注意：若 FEM 偏好里勾了「使用临时目录」，会覆盖对象的 WorkingDirectory；正确做法是设置偏好键（见第 15 条）。
+13. **Gmsh 不支持中文路径**：FreeCAD→Gmsh 用 UTF-8 传 `shape2mesh.geo` 路径，Windows 版 Gmsh 按 ANSI 解析，路径/文件名含中文就报 `Unable to open file 'D:/E/ÏîÄ¿/...'`（日志面板还会因 GBK 解码失败抛 UnicodeDecodeError，掩盖真实原因）。对象内部 Name 在 1.1 里只读、无法改；解决：复制成 ASCII 名 Part::Feature（`b=addObject('Part::Feature','Bracket'); b.Shape=s`）再网格化，或使用 ASCII 工作目录。
+14. **Python 给 Force/Boundary 赋数值必须带单位字符串**：Calc 内部单位是 `kg·mm/s²`（= mN），`cf.Force = 500` 表示 500 mN = 0.5 N，结果整体小 1000 倍；写 `cf.Force = '500 N'`（GUI 输入会自动换算，不受影响）。
+15. **FEM 偏好键**：求解器二进制 `User parameter:BaseApp/Preferences/Mod/Fem/Ccx` → `ccxBinaryPath`（不设会得到相对路径 `.\ccx.EXE`，启动即退出）；工作目录 `.../Fem/General` → `UseBesideDirectory` / `UseCustomDirectory` / `CustomDirectoryPath` / `UseTempDirectory`。
+16. **对象内部 Name ≠ Label**：`App.ActiveDocument.getObject()` 只认内部 Name（连字符会被换成下划线，如 `Force-Top` → `Force_Top`），Label 是界面显示名；调试时先打印 `[(o.Name,o.Label) for o in doc.Objects]`。
 
 ## 7. 更新策略与「检查更新」标准动作
 
