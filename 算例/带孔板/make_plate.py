@@ -4,7 +4,7 @@
 用途：FEA 应力集中系数 Kt 验证算例。
 
 用法：
-    F:\\FreeCAD\\bin\\freecadcmd.exe "D:\\E\\项目\\算例\\带孔板\\make_plate.py"
+    F:\\FreeCAD\\bin\\freecadcmd.exe "D:\\E\\Model\\算例\\带孔板\\make_plate.py"
 """
 import os
 

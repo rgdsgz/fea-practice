@@ -1,7 +1,7 @@
 """把 PrePoMax 绿色版解压到 tools/PrePoMax（去掉压缩包内的版本号目录，路径更短）。
 
 用法：
-    F:\\Python3.13.13\\python.exe "D:\\E\\项目\\tools\\install_prepomax.py"
+    F:\\Python3.13.13\\python.exe "D:\\E\\Model\\tools\\install_prepomax.py"
 """
 import os
 import shutil

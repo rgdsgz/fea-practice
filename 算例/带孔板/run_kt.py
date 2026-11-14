@@ -1,7 +1,7 @@
 """带孔板 Kt 验证：Gmsh 网格 → 组装 CalculiX 输入 → 求解 → 提取最大 von Mises。
 
 用法（用系统 Python，含 numpy）：
-    F:\\Python3.13.13\\python.exe "D:\\E\\项目\\算例\\带孔板\\run_kt.py"
+    F:\\Python3.13.13\\python.exe "D:\\E\\Model\\算例\\带孔板\\run_kt.py"
 
 理论值（d/W=10/50=0.2，净截面 Kt ≈ 2.508，见 Peterson）：
     σ_gross = 100 MPa, σ_net = 125 MPa, σ_max ≈ 313.5 MPa
@@ -13,7 +13,7 @@ import subprocess
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-TOOLS = os.path.dirname(os.path.dirname(HERE))  # D:\E\项目
+TOOLS = os.path.dirname(os.path.dirname(HERE))  # D:\E\Model
 FATIGUE_DIR = os.path.join(TOOLS, "tools", "疲劳")
 sys.path.insert(0, FATIGUE_DIR)
 

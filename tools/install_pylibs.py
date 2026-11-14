@@ -1,7 +1,7 @@
 """把纯 Python 依赖的 wheel 直接解压到 tools/python_libs（绕开 pip 在受限环境下的临时目录问题）。
 
 用法：
-    F:\\Python3.13.13\\python.exe "D:\\E\\项目\\tools\\install_pylibs.py"
+    F:\\Python3.13.13\\python.exe "D:\\E\\Model\\tools\\install_pylibs.py"
 
 安装：fatpack（疲劳 S-N/雨流）、rainflow（雨流计数）、meshio（网格/结果格式转换）。
 装好后把 tools/python_libs 加入 sys.path 即可 import（脚本里已自动处理）。

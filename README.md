@@ -1,11 +1,11 @@
 # 建模 + 有限元分析工作区
 
-`D:\E\项目` 是本人的 **CAD 建模与有限元分析（FEA）** 工作区。以后所有建模、网格、求解、后处理任务都在这里进行。
+`D:\E\Model` 是本人的 **CAD 建模与有限元分析（FEA）** 工作区。以后所有建模、网格、求解、后处理任务都在这里进行。
 
 ## 目录
 
 ```
-D:\E\项目\
+D:\E\Model\
 ├─ README.md            ← 本文件
 ├─ AGENTS.md            ← AI 代理用的工作区约定（工具链/单位制/坑/基线）
 ├─ 项目\                ← 实际项目，一个项目一个目录
@@ -39,12 +39,17 @@ D:\E\项目\
 
 全部免费开源；版本已锁定（见 `AGENTS.md` §7）。
 
+> **2026-11-14 变更**
+> - 工作区目录已从 `D:\E\项目` 改名为 **`D:\E\Model`**，脚本、文档、回归测试里的路径已全部同步（回归 5/5 通过）。
+> - **CFD（流体仿真）暂缓**：CfdOF 插件（v1.37.3）已装在 `%APPDATA%\FreeCAD\v1-1\Mod\CfdOF`，但 OpenFOAM（blueCFD-Core 2024-1）与 ParaView 6.1.0 **未安装**，所以 CFD 功能暂时不可用。安装包留在 `tools\downloads\`（blueCFD 1.15 GB，可删）；将来要继续装的话，踩坑记录见 `文档\工具链调研-2026-11.md` §10。
+> - 约定：**任何下载包、安装解包临时文件都不写到 C 盘**（安装包放 `tools\downloads\`，临时目录放 `tools\tmp\`）。
+
 ## 快速开始
 
 ### 1. 新建项目
 
 ```powershell
-F:\Python3.13.13\python.exe D:\E\项目\tools\new_project.py 001-支架强度校核
+F:\Python3.13.13\python.exe D:\E\Model\tools\new_project.py 001-支架强度校核
 ```
 
 自动生成 `项目\001-支架强度校核\` 及 `01-几何` ~ `05-报告` 五个子目录和项目 README（待填）。
@@ -64,13 +69,13 @@ F:\Python3.13.13\python.exe D:\E\项目\tools\new_project.py 001-支架强度校
 **方式 B：命令行（批量/可复现）**
 
 ```powershell
-& 'D:\E\项目\tools\PrePoMax\Solver\ccx_dynamic.exe' -i 模型.inp
+& 'D:\E\Model\tools\PrePoMax\Solver\ccx_dynamic.exe' -i 模型.inp
 ```
 
 **方式 C：PrePoMax 脚本（无窗口自动化）**
 
 ```powershell
-& 'D:\E\项目\tools\PrePoMax\PrePoMax.com' --script build.py -g No -x Yes -w 输出目录 --report 报告.json
+& 'D:\E\Model\tools\PrePoMax\PrePoMax.com' --script build.py -g No -x Yes -w 输出目录 --report 报告.json
 ```
 
 ### 4. 后处理
@@ -79,13 +84,13 @@ F:\Python3.13.13\python.exe D:\E\项目\tools\new_project.py 001-支架强度校
 - **应力提取**：
 
 ```powershell
-F:\Python3.13.13\python.exe D:\E\项目\tools\疲劳\frd_stress.py 结果.frd -o 应力.csv
+F:\Python3.13.13\python.exe D:\E\Model\tools\疲劳\frd_stress.py 结果.frd -o 应力.csv
 ```
 
 - **疲劳评定**（高周，S-N + Miner）：
 
 ```powershell
-F:\Python3.13.13\python.exe D:\E\项目\tools\疲劳\fatigue.py 应力.csv --uts 400 --ratio 0
+F:\Python3.13.13\python.exe D:\E\Model\tools\疲劳\fatigue.py 应力.csv --uts 400 --ratio 0
 ```
 
 ## 材料选择
@@ -99,7 +104,7 @@ F:\Python3.13.13\python.exe D:\E\项目\tools\疲劳\fatigue.py 应力.csv --uts
 ## 验证基线（改环境后先跑这个）
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File D:\E\项目\tools\regression_test.ps1
+powershell -ExecutionPolicy Bypass -File D:\E\Model\tools\regression_test.ps1
 ```
 
 覆盖：CalculiX 版本、立方体单单元、带孔板 Kt（2.42–2.44）、疲劳脚本。全绿才说明工具链正常。
@@ -115,5 +120,5 @@ powershell -ExecutionPolicy Bypass -File D:\E\项目\tools\regression_test.ps1
 ## 文档
 
 - `文档\`：工具链调研报告、后续补充的规范/笔记。
-- `AGENTS.md`：工具链、命令、已知坑（9 条，含 CalculiX `P1`~`P6`、Gmsh 语法、FreeCAD 导 STEP 崩溃等）。
+- `AGENTS.md`：工具链、命令、已知坑（18 条，含 CalculiX `P1`~`P6`、Gmsh 语法、FreeCAD 导 STEP 崩溃、Inno 安装器临时目录坑等）。
 - `算例\带孔板\README.md`：Kt 验证完整过程，可作为"照着做"的模板。

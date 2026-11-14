@@ -1,11 +1,11 @@
 """从 FreeCAD 自带的 .FCMat 材料卡构建本地选材数据库 (SQLite + CSV)。
 
 用法（用 FreeCAD 自带 Python，因为它带 PyYAML/pandas）：
-    F:\\FreeCAD\\bin\\python.exe "D:\\E\\项目\\tools\\选材\\build_materials.py"
+    F:\\FreeCAD\\bin\\python.exe "D:\\E\\Model\\tools\\选材\\build_materials.py"
 
 输出：
-    D:\\E\\项目\\tools\\选材\\materials.db    （SQLite，表 materials）
-    D:\\E\\项目\\tools\\选材\\materials.csv   （Excel 可直接打开）
+    D:\\E\\Model\\tools\\选材\\materials.db    （SQLite，表 materials）
+    D:\\E\\Model\\tools\\选材\\materials.csv   （Excel 可直接打开）
 
 数据库字段说明见 README 或表结构注释。疲劳字段（sigma_f / b / Se）默认留空，
 由使用者按实测 S-N 数据或工程估算填写。

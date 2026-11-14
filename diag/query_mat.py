@@ -1,6 +1,6 @@
 import sqlite3
 
-DB = r"D:\E\项目\tools\选材\materials.db"
+DB = r"D:\E\Model\tools\选材\materials.db"
 con = sqlite3.connect(DB)
 cur = con.cursor()
 print("columns:", [r[1] for r in cur.execute("PRAGMA table_info(materials)")])

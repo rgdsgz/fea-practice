@@ -3,7 +3,7 @@
 FreeCAD 启动时会把该目录加入 sys.path（已实测），因此补上 networkx 即可。
 
 用法：
-    F:\\Python3.13.13\\python.exe "D:\\E\\项目\\tools\\install_sheetmetal_dep.py"
+    F:\\Python3.13.13\\python.exe "D:\\E\\Model\\tools\\install_sheetmetal_dep.py"
 """
 import os
 import shutil

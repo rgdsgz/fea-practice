@@ -1,4 +1,4 @@
-FRD: D:\E\项目\项目\002-L形支架静力分析\03-计算\ccx\Unnamed\SolverCcxTools\FEMMeshGmsh.frd
+FRD: D:\E\Model\项目\002-L形支架静力分析\03-计算\ccx\Unnamed\SolverCcxTools\FEMMeshGmsh.frd
 节点数: 36325, 位移节点: 36325, 应力节点: 36325
 
 == 位移 ==

@@ -1,6 +1,6 @@
 import sqlite3
 
-DB = r"D:\E\项目\tools\选材\materials.db"
+DB = r"D:\E\Model\tools\选材\materials.db"
 con = sqlite3.connect(DB)
 cur = con.cursor()
 cur.execute("SELECT * FROM materials WHERE name IN ('CalculiX-Steel','Steel-Generic')")

@@ -1,7 +1,7 @@
 """解压 CalculiX 2.23 (Windows) 并把 ccx_dynamic.exe 替换进 PrePoMax 的 Solver 目录。
 
 用法：
-    F:\\Python3.13.13\\python.exe "D:\\E\\项目\\tools\\install_calculix.py"
+    F:\\Python3.13.13\\python.exe "D:\\E\\Model\\tools\\install_calculix.py"
 """
 import os
 import shutil

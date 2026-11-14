@@ -1,6 +1,6 @@
 """Research probe: GitHub repo metadata + FreeCAD addon catalog scan + download reachability.
 
-Run with: F:\\Python3.13.13\\python.exe D:\\E\\项目\\diag\\research_probe.py
+Run with: F:\\Python3.13.13\\python.exe D:\\E\\Model\\diag\\research_probe.py
 """
 import io
 import json

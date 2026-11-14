@@ -1,5 +1,5 @@
 ﻿# 工作区回归测试：更新工具链后跑一遍，全绿才说明环境正常。
-# 用法（PowerShell）：powershell -ExecutionPolicy Bypass -File D:\E\项目\tools\regression_test.ps1
+# 用法（PowerShell）：powershell -ExecutionPolicy Bypass -File D:\E\Model\tools\regression_test.ps1
 # 可选参数：-SkipKt（跳过带孔板，省 10-30 秒）、-SkipFatigue
 param(
     [switch]$SkipKt,
@@ -10,7 +10,7 @@ $ErrorActionPreference = 'Continue'
 try { [Console]::OutputEncoding = [System.Text.Encoding]::UTF8 } catch { }
 $env:PYTHONIOENCODING = 'utf-8'
 
-$Root = 'D:\E\项目'
+$Root = 'D:\E\Model'
 $Py   = 'F:\Python3.13.13\python.exe'
 $Ccx  = Join-Path $Root 'tools\PrePoMax\Solver\ccx_dynamic.exe'
 $Gmsh = 'F:\FreeCAD\bin\gmsh.exe'

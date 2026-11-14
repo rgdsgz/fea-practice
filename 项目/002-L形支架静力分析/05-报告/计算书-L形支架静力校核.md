@@ -133,7 +133,7 @@ FEA 挠度比手算小 3.6%：手算把立板根部当作理想固支；实际�
    g = FreeCAD.ParamGet('User parameter:BaseApp/Preferences/Mod/Fem/General')
    g.SetBool('UseBesideDirectory', False); g.SetBool('UseTempDirectory', False)
    g.SetBool('UseCustomDirectory', True)
-   g.SetString('CustomDirectoryPath', r'D:\E\项目\项目\002-L形支架静力分析\03-计算\ccx')
+   g.SetString('CustomDirectoryPath', r'D:\E\Model\项目\002-L形支架静力分析\03-计算\ccx')
    FreeCAD.ParamGet('User parameter:BaseApp/Preferences/Mod/Fem/Ccx').SetString('ccxBinaryPath', r'F:\FreeCAD\bin\ccx.EXE')
    ```
 

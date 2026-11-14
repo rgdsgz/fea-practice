@@ -8,7 +8,7 @@ import math
 import os
 import sys
 
-FRD = sys.argv[1] if len(sys.argv) > 1 else r"D:\E\项目\项目\002-L形支架静力分析\03-计算\ccx\Unnamed\SolverCcxTools\FEMMeshGmsh.frd"
+FRD = sys.argv[1] if len(sys.argv) > 1 else r"D:\E\Model\项目\002-L形支架静力分析\03-计算\ccx\Unnamed\SolverCcxTools\FEMMeshGmsh.frd"
 OUT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 nodes = {}      # nid -> (x, y, z)

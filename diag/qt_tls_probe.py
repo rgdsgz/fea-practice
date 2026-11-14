@@ -1,6 +1,6 @@
 """Probe Qt6 TLS / proxy behaviour inside FreeCAD's own Python+Qt environment.
 
-Run with: F:\FreeCAD\bin\python.exe D:\E\项目\diag\qt_tls_probe.py
+Run with: F:\FreeCAD\bin\python.exe D:\E\Model\diag\qt_tls_probe.py
 """
 import os
 import sys

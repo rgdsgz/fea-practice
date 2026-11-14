@@ -1,11 +1,11 @@
 """根据本地材料库绘制 Ashby 材料性能图（E-ρ、σy-ρ）。
 
 用法（FreeCAD 自带 Python，含 matplotlib/numpy）：
-    F:\\FreeCAD\\bin\\python.exe "D:\\E\\项目\\tools\\选材\\ashby_plots.py"
+    F:\\FreeCAD\\bin\\python.exe "D:\\E\\Model\\tools\\选材\\ashby_plots.py"
 
 输出：
-    D:\\E\\项目\\tools\\选材\\ashby_E_rho.png
-    D:\\E\\项目\\tools\\选材\\ashby_sy_rho.png
+    D:\\E\\Model\\tools\\选材\\ashby_E_rho.png
+    D:\\E\\Model\\tools\\选材\\ashby_sy_rho.png
 """
 import os
 import sqlite3

@@ -4,7 +4,7 @@
     %APPDATA%\\FreeCAD\\v1-1\\Mod\\<AddonName>
 
 用法：
-    F:\\Python3.13.13\\python.exe "D:\\E\\项目\\tools\\install_addons.py"
+    F:\\Python3.13.13\\python.exe "D:\\E\\Model\\tools\\install_addons.py"
 """
 import os
 import shutil

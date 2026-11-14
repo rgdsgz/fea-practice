@@ -1,6 +1,6 @@
 # 工作区说明（给 AI 代理）
 
-本工作区 `D:\E\项目` 用于 **CAD 建模 + 有限元分析**。所有建模/网格/FEA 任务都在这里进行。
+本工作区 `D:\E\Model` 用于 **CAD 建模 + 有限元分析**。所有建模/网格/FEA 任务都在这里进行。
 人类可读的入口见 `README.md`；本文件记录约定、路径、命令和已知坑，供后续会话直接复用。
 
 ## 1. 工具链（已安装，不要重复安装）
@@ -10,12 +10,15 @@
 | 建模（GUI） | `F:\FreeCAD\bin\freecad.exe` | FreeCAD 1.1.4 |
 | 建模（命令行） | `F:\FreeCAD\bin\freecadcmd.exe` | 同上（Part 模块可用；**Part.export 无界面导出会崩溃，导 STEP 用 Gmsh 或 GUI**） |
 | 网格 | `F:\FreeCAD\bin\gmsh.exe` | Gmsh 4.15.0（OCC 内核，可 `-0 -format stp` 导 STEP、`-3 -format inp` 出 Abaqus/CalculiX 网格） |
-| 前处理/求解 GUI | `D:\E\项目\tools\PrePoMax\PrePoMax.exe` | PrePoMax 3.0.0 |
-| 求解器 | `D:\E\项目\tools\PrePoMax\Solver\ccx_dynamic.exe` | CalculiX **2.23**（已替换；旧 2.22 备份为 `.2.22.bak`） |
+| 前处理/求解 GUI | `D:\E\Model\tools\PrePoMax\PrePoMax.exe` | PrePoMax 3.0.0 |
+| 求解器 | `D:\E\Model\tools\PrePoMax\Solver\ccx_dynamic.exe` | CalculiX **2.23**（已替换；旧 2.22 备份为 `.2.22.bak`） |
 | 命令行求解（备用） | `F:\FreeCAD\bin\ccx.exe` | CalculiX 2.22 |
 | Python（系统） | `F:\Python3.13.13\python.exe` | 3.13，含 numpy/matplotlib；无 pandas/scipy |
 | Python（FreeCAD） | `F:\FreeCAD\bin\python.exe` | 3.11，含 numpy/pandas/scipy/matplotlib/yaml（做材料库/画图用这个） |
 | 可选库 | `tools\python_libs\`（rainflow 等） | 脚本已自动加入 sys.path |
+| CFD 插件（已装，**无求解器**） | `%APPDATA%\FreeCAD\v1-1\Mod\CfdOF` | CfdOF v1.37.3（纯 Python，6 MB）；首选项 `InstallationPath=F:\blueCFD-Core` 指向**不存在**的目录 |
+
+**CFD 状态（2026-11-14）**：用户决定**暂不做流体仿真**，blueCFD-Core 2024-1 与 ParaView 6.1.0 **未安装**（安装包留在 `tools\downloads\blueCFD-Core-2024-1-win64-setup.exe`，1.15 GB，可删）。CfdOF 插件保留但当前不可用（`CfdTools.getFoamRuntime()` 会抛 `OSError: The directory F:\blueCFD-Core is not a recognised OpenFOAM installation`）。将来要装时的踩坑记录见 `文档\工具链调研-2026-11.md` §10。
 
 PrePoMax 自带 **Python API + 命令行 + MCP 自动化端点**（`tools\PrePoMax\Help\Python\`）。
 无窗口跑脚本：
@@ -32,7 +35,7 @@ tools\PrePoMax\PrePoMax.com --script <绝对路径.py> -g No -x Yes -w <工作�
 ## 3. 目录约定
 
 ```
-D:\E\项目\
+D:\E\Model\
 ├─ AGENTS.md            # 本文件
 ├─ README.md            # 人类入口
 ├─ 项目\                # 实际项目，一个项目一个目录：<编号-名称>\
@@ -89,6 +92,8 @@ D:\E\项目\
 14. **Python 给 Force/Boundary 赋数值必须带单位字符串**：Calc 内部单位是 `kg·mm/s²`（= mN），`cf.Force = 500` 表示 500 mN = 0.5 N，结果整体小 1000 倍；写 `cf.Force = '500 N'`（GUI 输入会自动换算，不受影响）。
 15. **FEM 偏好键**：求解器二进制 `User parameter:BaseApp/Preferences/Mod/Fem/Ccx` → `ccxBinaryPath`（不设会得到相对路径 `.\ccx.EXE`，启动即退出）；工作目录 `.../Fem/General` → `UseBesideDirectory` / `UseCustomDirectory` / `CustomDirectoryPath` / `UseTempDirectory`。
 16. **对象内部 Name ≠ Label**：`App.ActiveDocument.getObject()` 只认内部 Name（连字符会被换成下划线，如 `Force-Top` → `Force_Top`），Label 是界面显示名；调试时先打印 `[(o.Name,o.Label) for o in doc.Objects]`。
+17. **Inno Setup 安装器（blueCFD 这类 1 GB+ 的 .exe）静默安装的坑**：它默认把解包临时文件放 `%TEMP%`（本机在 C 盘），实测会出现「进程一闪而过、无日志、无安装目录、cmd 里 `%ERRORLEVEL%` 还显示 0」的假失败/假成功。正确做法：先把 `$env:TMP`/`$env:TEMP` 指到**目标盘**（例如 `D:\E\Model\tools\tmp\itmp`）再 `Start-Process -Wait`，并加 `/LOG=<非 C 盘路径>`；运行时还要用 `-RedirectStandardOutput/-RedirectStandardError` 重定向，否则安装器子进程继承管道句柄会让调用永远不返回。1.15 GB 的包解压约 5–8 分钟、落盘约 3.2 GB / 8.9 万文件。
+18. **不要把下载包或安装临时文件写到 C 盘**（用户明确要求）：安装包统一放 `tools\downloads\`，临时目录放 `tools\tmp\`；`.msi` 用 `msiexec /a <msi> /qn TARGETDIR=<非 C 盘路径>` 做管理安装（只解包，不需要管理员权限）。
 
 ## 7. 更新策略与「检查更新」标准动作
 
@@ -141,7 +146,7 @@ D:\E\项目\
 ### 7.4 回归验证
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File D:\E\项目\tools\regression_test.ps1
+powershell -ExecutionPolicy Bypass -File D:\E\Model\tools\regression_test.ps1
 ```
 
 必须 5/5 全通过。失败则回滚刚更新的组件（用备份），并记录失败原因。

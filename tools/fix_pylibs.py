@@ -1,7 +1,7 @@
 """修复可选库安装：用清华镜像下载 fatpack / meshio 并解压到 tools/python_libs。
 
 用法：
-    F:\\Python3.13.13\\python.exe "D:\\E\\项目\\tools\\fix_pylibs.py"
+    F:\\Python3.13.13\\python.exe "D:\\E\\Model\\tools\\fix_pylibs.py"
 """
 import os
 import re

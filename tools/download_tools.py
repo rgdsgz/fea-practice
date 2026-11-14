@@ -1,6 +1,6 @@
 """Download the toolchain installers into the workspace (tools/downloads).
 
-Run: F:\\Python3.13.13\\python.exe D:\\E\\项目\\tools\\download_tools.py
+Run: F:\\Python3.13.13\\python.exe D:\\E\\Model\\tools\\download_tools.py
 """
 import os
 import ssl

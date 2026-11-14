@@ -1,7 +1,7 @@
 """新建一个建模/FEA 项目目录（复制 项目\\_模板 的结构）。
 
 用法：
-    F:\\Python3.13.13\\python.exe D:\\E\\项目\\tools\\new_project.py 001-支架强度校核
+    F:\\Python3.13.13\\python.exe D:\\E\\Model\\tools\\new_project.py 001-支架强度校核
     # 项目已存在时只补缺失目录、覆盖 README：
     ... new_project.py 001-支架强度校核 --force
 
