@@ -73,6 +73,7 @@ D:\E\Model\
 | 疲劳脚本（同算例应力） | UTS 400、R=0：σa=50.84 MPa → N=1.98e12，损伤 5.04e-6 |
 | 悬臂梁全流程（`项目\001-悬臂梁静力分析`） | 碳钢 100×10×10 mm、端部 100 N：δ=0.19043 mm（理论 0.19048）、跨中 30.03 MPa（理论 30）、固定端最大 59.31/全场 60.88 MPa（理论 60）；ccx 2.22 与 2.23 结果一致 |
 | L 形支架全流程（`项目\002-L形支架静力分析`） | 底板 100×60×8 + 立板 8×60×80 + R8 + 4×Ø9、顶面 500 N 沿 −X：顶面挠度 0.1525 mm（手算 0.1587，−3.6%）、全场最大 61.68 MPa @ R8 圆角（手算 62.5，−1.3%）、SF=235/61.7=3.8；C3D10 36325 节点、95100 方程 |
+| 带孔板网格收敛（`项目\003-带孔板应力集中与网格收敛`） | 板 50×120×10、中心 Ø16、顶面 20 MPa（合力 10 kN 沿 +Y）、底面固定：四档网格 6/4/2.5/1.5 mm → σ_max = 66.50 / 68.81 / 67.91 / 68.97 MPa；**收敛值 68.6±0.6 MPa，Kt=2.33±0.02（二维理论 2.31，+1.5%）**；1.5 mm 档 132351 节点 / 85930 个 C3D10 |
 
 ## 6. 已知坑（都是踩过的，别再踩）
 
@@ -94,6 +95,9 @@ D:\E\Model\
 16. **对象内部 Name ≠ Label**：`App.ActiveDocument.getObject()` 只认内部 Name（连字符会被换成下划线，如 `Force-Top` → `Force_Top`），Label 是界面显示名；调试时先打印 `[(o.Name,o.Label) for o in doc.Objects]`。
 17. **Inno Setup 安装器（blueCFD 这类 1 GB+ 的 .exe）静默安装的坑**：它默认把解包临时文件放 `%TEMP%`（本机在 C 盘），实测会出现「进程一闪而过、无日志、无安装目录、cmd 里 `%ERRORLEVEL%` 还显示 0」的假失败/假成功。正确做法：先把 `$env:TMP`/`$env:TEMP` 指到**目标盘**（例如 `D:\E\Model\tools\tmp\itmp`）再 `Start-Process -Wait`，并加 `/LOG=<非 C 盘路径>`；运行时还要用 `-RedirectStandardOutput/-RedirectStandardError` 重定向，否则安装器子进程继承管道句柄会让调用永远不返回。1.15 GB 的包解压约 5–8 分钟、落盘约 3.2 GB / 8.9 万文件。
 18. **不要把下载包或安装临时文件写到 C 盘**（用户明确要求）：安装包统一放 `tools\downloads\`，临时目录放 `tools\tmp\`；`.msi` 用 `msiexec /a <msi> /qn TARGETDIR=<非 C 盘路径>` 做管理安装（只解包，不需要管理员权限）。
+19. **FreeCAD 1.1 的 Gmsh 网格包装不可用**：`femmesh.gmshtools.GmshTools(mesh).create_mesh()` 只是 `run(True)`，走 **QProcess 异步**，立刻返回 None 且不报错；它内部命令是 `gmsh -v 3 - <shape2mesh.geo>`（`F:\FreeCAD\Mod\Fem\femmesh\gmshtools.py:215`、`:1815`），那个 `-` 参数在 Windows 下让 gmsh 什么都不生成（只留下 `.brep` 和 `.geo`）。**绕行三步**：① `gt = GmshTools(mesh); gt.prepare()` 只写 brep+geo（不跑 gmsh）；② 命令行 `F:\FreeCAD\bin\gmsh.exe shape2mesh.geo -3 -format unv -o Cut_Mesh.unv`（在 `03-计算\ccx\<docName>\<meshName>\` 里跑）；③ `mesh.FemMesh = Fem.read(<unv 路径>)` + `doc.recompute()`，物理组（`Face2_Nodes` 等）会保留，约束/载荷仍能映射。`Fem.read` 支持 `.unv`（`F:\FreeCAD\Mod\Fem\Init.py:66`）。
+20. **FEM 工作台的 GUI 命令经常发灰**（`模型 → 新建分析`、`模型 → 材质` 整串子菜单）：多在焦点落在 Python 控制台或存在未关闭的任务对话框时发生。**直接走控制台**：`ObjectsFem.makeAnalysis(doc,"Analysis")`、`ObjectsFem.makeMaterialSolid(doc,"MaterialSolid")`、`ObjectsFem.makeSolverCalculiXCcxTools(doc,"SolverCcxTools")`、`ObjectsFem.makeMeshGmsh(doc,"FEMMeshGmsh")`。注意控制台建出来的对象默认与 `Analysis` **平级（游离）**，必须 `Analysis.addObject(obj)` 才会参与求解。
+21. **无界面跑 FEM 求解用 `run.run_fem_solver`**：`from femsolver import run; run.run_fem_solver(doc.getObject('SolverCcxTools'), working_dir=r"...\03-计算\ccx", blocking=True)`（`F:\FreeCAD\Mod\Fem\femsolver\run.py:75`，`blocking=True` 才会等 ccx 跑完）。跑之前先 `Ctrl+S`。首选项里 `ccxBinaryPath` / `CustomDirectoryPath` 常常残留旧绝对路径（本例曾指向 `F:\FreeCAD\bin\ccx.EXE` 和 002 项目的旧目录），必须逐个核对。
 
 ## 7. 更新策略与「检查更新」标准动作
 
