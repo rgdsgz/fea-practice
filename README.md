@@ -129,6 +129,14 @@ powershell -ExecutionPolicy Bypass -File D:\E\Model\tools\regression_test.ps1
 - **说「检查更新」时**：会检查本工作区全部工具（FreeCAD、PrePoMax、CalculiX、Gmsh、插件、networkx 等）的版本，联网对比最新稳定版并**自行完成更新**，最后跑回归测试——无需再确认（除非涉及主版本大改/预发布/删除数据）——见上面 **R2** 与 `AGENTS.md` §7。
 - **新项目第一步**：把 FEM 网格工作目录设成纯 ASCII 路径（`D:\E\Model\fem<编号>`），否则 Gmsh 必然报 `Unable to open file`——见上面 **R3** 与 `AGENTS.md` §3.1。
 
+## 仓库与许可
+
+公开仓库：<https://github.com/rgdsgz/fea-practice>（每个项目完成后按 `AGENTS.md` §10 提交并推送）
+
+仓库只存**脚本、计算书、结果图片、瘦身后的 `.FCStd`**；网格（`.unv`）、`.frd`/`.dat` 等求解产物由脚本在本地重新生成，不入库（GitHub 单文件上限 100 MB，实践控制在 10 MB 内）。要复现某个项目的数值结果，按该项目 `README.md` 的「复现方式」跑一遍即可。
+
+代码与文档采用 **MIT 许可证**，见 `LICENSE`。计算书中的材料数据来自 FreeCAD 材料卡与标准手册，引用时请注明来源；计算结果仅供参考，用于工程决策前请自行复核。
+
 ## 文档
 
 - `文档\`：工具链调研报告、后续补充的规范/笔记。
