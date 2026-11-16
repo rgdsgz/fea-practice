@@ -282,3 +282,71 @@ powershell -ExecutionPolicy Bypass -File D:\E\Model\tools\regression_test.ps1
 
 **2026-11-14：暂不更换主工具链**（CalculiX 2.23 + PrePoMax 3.0.0 + FreeCAD 1.1.4 + Gmsh 4.15 已是免费方案第一梯队）。遇到局限→先提醒→由用户决定是否加装。
 即使用户选择不换，也要在 `05-报告` 计算书的「结论与假设」里写明该局限对结果的影响。
+
+
+## 10. 远程仓库（公开）与提交推送流程
+
+**用户 2026-11-16 要求**：建一个公开仓库，之后每个项目都提交进去。
+
+| 项 | 值 |
+|---|---|
+| 仓库 | <https://github.com/rgdsgz/fea-practice>（**公开**） |
+| remote | `origin` = `git@github.com:rgdsgz/fea-practice.git`（SSH over 443，见 `~/.ssh/config`） |
+| 分支 | `main`，已 `-u` 跟踪 `origin/main` |
+| 身份 | `KRQ <kyxlss@163.com>` |
+
+### 10.1 每个项目完成后的标准动作
+
+```powershell
+cd D:\E\Model
+git add -A
+git commit -m "<编号> <项目名>：<一句话结果>"
+git push
+```
+
+一个练习项目一个提交（或几个语义清晰的提交），提交信息写清**编号 + 项目名 + 关键数值结论**，便于在仓库页面上直接看出成果（例：`004 圆盘模态分析：前 10 阶 1513.8~8730.0 Hz，对 Mindlin 板平均 -0.48%`）。
+
+### 10.2 入库 / 不入库（体积红线）
+
+**入库**：脚本（`.py`/`.ps1`）、计算书与 README（`.md`）、图片（`04-结果\figs\*.png`）、**瘦身后**的 `.FCStd`（见 10.3）、小型 `.inp` 回归基线（如 `算例\带孔板\plate_hole_l2.inp` 6 MB）。
+
+**不入库**（`.gitignore` 已覆盖）：`*.unv`（网格，10–43 MB，可由脚本重新生成）、`项目/*/03-计算/ccx/`（求解中间目录）、`*.frd`/`*.dat`/`*.sta`/`*.cvg`/`*.12d`、`fem00*/`（ASCII 网格工作目录）、`项目/*/04-结果/*.inp`、`项目/*/04-结果/modes_disp.csv` 与 `*_nodes.csv`、`归档/`、`*.FCBak`、`tools/PrePoMax/`、`tools/downloads/`。
+
+**单文件硬限 100 MB**（GitHub 拒绝），实践上控制在 10 MB 以内；超过就瘦身或改用生成脚本。
+
+### 10.3 FCStd 瘦身（存进网格/结果会暴涨）
+
+FreeCAD 的 `.FCStd` 本质是 zip，把网格写进文档会让体积从几十 KB 涨到上百 MB（例：`Disc.FCStd` 含 34664 节点网格 + 后处理管线后 111.2 MB）。入库前必须删掉网格与结果对象再存：
+
+```python
+import FreeCAD
+doc = FreeCAD.openDocument(src)
+for o in list(doc.Objects):
+    if o.TypeId.startswith(("Fem::FemMesh", "Fem::FemResult", "Fem::Result", "Fem::FemPost")) \
+       or o.Name.startswith(("CCX_Results", "ccx_dat_file", "Pipeline_CCX_")):
+        doc.removeObject(o.Name)
+doc.recompute()
+doc.saveAs(dst)
+```
+
+- 脚本现成：`tools\tmp\strip_fcstd.py`（参数走 ASCII JSON，中文路径不能上命令行，见 §6 #26）。
+- 瘦身后 4 个模型都只剩 5–17 KB，几何体积/面数/边数与原文件**完全一致**（`tools\tmp\verify_slim.py` 校验 PASS），`Analysis` 成员（MaterialSolid / 约束 / 载荷 / Solver）全部保留。
+- 需要结果时由脚本重新生成网格与求解，不要从仓库里找。
+
+### 10.4 历史重写（补齐旧项目时做过一次，2026-11-16）
+
+旧历史里 10 个提交含 7 个 >10 MB 的 blob（最大 `Disc.FCStd` 111.2 MB），直接 push 会被拒。处理方式：
+
+- 本机 `git filter-branch` 不可用（沙箱下 MSYS `bash.exe` 报 `fatal error - couldn't create signal pipe, Win32 error 5`），`git filter-repo` 未安装。
+- 改用 `tools\tmp\rewrite_hist.py`（纯 plumbing：`ls-tree` → 过滤 → `mktree` → `commit-tree` → `update-ref`），逐提交重建树、删掉 ≥10 MB 的 blob 与 `.unv`，保留作者/提交者/时间/信息。
+- 之后 `git reflog expire --expire=now --all` + `rm -rf .git/logs` + `git gc --prune=now`，`.git` **284 MB → 11.4 MB**，14 个提交全部保留。
+- 重写后哈希全变（HEAD `1e4256f`）；原件备份在 `归档\backup_20261116_before_slim\`（含旧 `.git` 与 4 个完整 FCStd，465.6 MB，已被 gitignore）。
+
+### 10.5 推送时的两个环境坑
+
+1. **SSH**：Git 自带的 MSYS `ssh.exe` 在本机沙箱下起不来（`couldn't create signal pipe, Win32 error 5`）。必须让 git 用 Windows 自带 OpenSSH：
+   ```powershell
+   git config core.sshCommand "C:/WINDOWS/System32/OpenSSH/ssh.exe"
+   ```
+   **不要**在 `core.sshCommand` 里追加参数（如 `-o StrictHostKeyChecking=...`），带参数的字符串会让 git 退回 MSYS ssh 而失败；需要的话写进 `~/.ssh/config`。
+2. **HTTPS 不建议**：走 `https://` 会调用 credential manager 弹窗，且大仓推送慢；本机已配好 SSH key（`~/.ssh/id_ed25519`，`ssh -T git@github.com` 认证成功为 `rgdsgz`）。
