@@ -52,6 +52,27 @@ D:\E\Model\
 
 新建项目：`F:\Python3.13.13\python.exe tools\new_project.py <编号-名称>`（自动按模板建目录）。
 
+### 3.1 每个新项目必做：把 FEM 工作目录设成纯 ASCII 路径
+
+**原因**：项目目录名是中文（`项目\004-圆盘模态分析\...`），而 Windows 版 Gmsh 按 ANSI/GBK 解析命令行里的 `.geo` 绝对路径，遇到中文直接 `Unable to open file`，网格永远生成不出来（详见 §6 第 13 条）。FreeCAD 的 FEM 首选项 GUI **没有**暴露这个设置，只能用控制台改。
+
+**新项目开工第一步**（在 FreeCAD 的 Python 控制台里执行，两行；把 `fem004` 换成 `fem<项目编号>`）：
+
+```python
+p = FreeCAD.ParamGet("User parameter:BaseApp/Preferences/Mod/Fem/General")
+p.SetBool("UseCustomDirectory", 1); p.SetBool("UseTempDirectory", 0)
+p.SetString("CustomDirectoryPath", r"D:\E\Model\fem004")
+FreeCAD.saveParameter()
+```
+
+- 目录要先存在（`os.makedirs(r"D:\E\Model\fem004", exist_ok=True)`，或在资源管理器里建），Gmsh 不会自己创建。
+- 改完必须 `FreeCAD.saveParameter()` 才会落到 `%APPDATA%\FreeCAD\v1-1\user.cfg`；不调用则只在当前进程内有效。
+- 若当前已经打开了「从形状生成网格（Gmsh）」任务面板，面板里的 `GmshTools` 在构造时就缓存了旧 working_dir → 先 **Cancel 关掉面板**，再重新执行 `网格 → 从形状生成网格（Gmsh）`。
+- 不要给 `ParamSet` 赋 `None`（如 `p.SetTempPath = None`）→ 会抛 `RuntimeError: Extension object missing implement of setattr`。
+- 校验：`freecadcmd` 里读回 `p.GetBool("UseCustomDirectory")` / `p.GetString("CustomDirectoryPath")` 确认为新值。
+
+**代理在每次新建项目目录后要主动执行这一步并把结果告诉用户**，不要等踩到 `Unable to open file` 再说。
+
 ## 4. 通用脚本（复用，不要重写）
 
 | 脚本 | 作用 |
@@ -89,7 +110,7 @@ D:\E\Model\
 10. **FreeCAD 1.1 的力方向**：`ConstraintForce.Direction` 是 PropertyLinkSub（指向一条边），不是向量；GUI「方向」框填 `(0,0,-1)` 会报 Invalid syntax，Python 里赋 `App.Vector` 会报 TypeError。正确写法：`cf.Direction=(obj,["Edge1"]); cf.Reversed=True`（选一条与目标方向平行的边）。官方示例见 `F:\FreeCAD\Mod\Fem\femexamples\ccx_cantilever_faceload.py`。
 11. **FreeCAD 1.1 后处理按 SI 单位显示**：位移是 m、应力是 Pa（色标 1.910e-04 = 0.191 mm，6.088e+07 = 60.88 MPa）；`.frd` 内仍是 mm-N-MPa，解析不受影响。
 12. **FreeCAD FEM 求解工作目录默认在系统临时目录**（`C:\Users\...\AppData\Local\Temp\fcfem_*`，沙箱读不了）：求解器面板里把「工作目录」改到项目 `03-计算\`，否则结果文件无法归档。注意：若 FEM 偏好里勾了「使用临时目录」，会覆盖对象的 WorkingDirectory；正确做法是设置偏好键（见第 15 条）。
-13. **Gmsh 不支持中文路径**：FreeCAD→Gmsh 用 UTF-8 传 `shape2mesh.geo` 路径，Windows 版 Gmsh 按 ANSI 解析，路径/文件名含中文就报 `Unable to open file 'D:/E/ÏîÄ¿/...'`（日志面板还会因 GBK 解码失败抛 UnicodeDecodeError，掩盖真实原因）。对象内部 Name 在 1.1 里只读、无法改；解决：复制成 ASCII 名 Part::Feature（`b=addObject('Part::Feature','Bracket'); b.Shape=s`）再网格化，或使用 ASCII 工作目录。
+13. **Gmsh 不支持中文路径（每次新项目必踩，见 §3.1）**：FreeCAD→Gmsh 用 UTF-8 传 `shape2mesh.geo` **绝对路径**，Windows 版 Gmsh 按 ANSI/GBK 解析，路径里只要有一个中文字就报 `Error : Unable to open file 'D:\E\Model\ÏîÄ¿\...\shape2mesh.geo'`（面板显示 `Preparation finished` → `Start process...` → `Process finished with errors. Result not updated.`）。对象内部 Name 在 1.1 里只读、无法改；两层都要处理：① 网格工作目录放纯 ASCII 路径（§3.1）；② 若几何是中文名对象，复制成 ASCII 名 Part::Feature（`b=addObject('Part::Feature','Bracket'); b.Shape=s`）再网格化。实测对照：同一份 `shape2mesh.geo`，在 `项目\004-...\ccx\Disc\` 下 exit=1，在 `tools\tmp\geo_test\` 下 exit=0 并正常写出 12 MB unv。
 14. **Python 给 Force/Boundary 赋数值必须带单位字符串**：Calc 内部单位是 `kg·mm/s²`（= mN），`cf.Force = 500` 表示 500 mN = 0.5 N，结果整体小 1000 倍；写 `cf.Force = '500 N'`（GUI 输入会自动换算，不受影响）。
 15. **FEM 偏好键**：求解器二进制 `User parameter:BaseApp/Preferences/Mod/Fem/Ccx` → `ccxBinaryPath`（不设会得到相对路径 `.\ccx.EXE`，启动即退出）；工作目录 `.../Fem/General` → `UseBesideDirectory` / `UseCustomDirectory` / `CustomDirectoryPath` / `UseTempDirectory`。
 16. **对象内部 Name ≠ Label**：`App.ActiveDocument.getObject()` 只认内部 Name（连字符会被换成下划线，如 `Force-Top` → `Force_Top`），Label 是界面显示名；调试时先打印 `[(o.Name,o.Label) for o in doc.Objects]`。
