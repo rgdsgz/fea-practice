@@ -1,0 +1,15 @@
+[0] work dir -> D:\E\Model\项目\004-圆盘模态分析\03-计算\ccx
+[1] doc opened: D:/E/Model/项目/004-圆盘模态分析/01-几何/Disc.FCStd
+[2] disc=<Part::Feature> analysis=<group object>
+[3] old meshes removed
+[4] mesh object created: FEMMesh4mm
+[5] prepared geo=D:\E\Model\项目\004-圆盘模态分析\03-计算\ccx\Disc\FEMMesh4mm\shape2mesh.geo
+    exists=True
+[6] F:\FreeCAD\bin\gmsh.exe shape2mesh.geo -3 -format unv -o FEMMesh4mm.unv -v 3
+    cwd=D:\E\Model\项目\004-圆盘模态分析\03-计算\ccx\Disc\FEMMesh4mm
+[7] gmsh exit = 0
+    unv exists=True size=12034784
+[8] Fem.read ok: nodes=34618 volumes=17374
+    groups=Edge1_Edges, Edge1_Nodes, Edge2_Edges, Edge2_Nodes, Edge3_Edges, Edge3_Nodes, Face1_Faces, Face1_Nodes, Face2_Faces, Face2_Nodes, Face3_Faces, Face3_Nodes, Solid1_Nodes, Solid1_Volumes
+[9] assigned: nodes=34618 volumes=17374
+[10] saved D:/E/Model/项目/004-圆盘模态分析/01-几何/Disc.FCStd

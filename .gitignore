@@ -38,6 +38,14 @@ desktop.ini
 
 # ---- matplotlib 缓存 ----
 .mplcache/
+.mpl/
+
+# ---- FEM ASCII 网格工作目录（AGENTS.md §3.1，可随时由脚本重新生成，体积大，不入库）----
+fem00*/
+
+# ---- 模态/疲劳等大批量节点数据 CSV（可再生成，按需另存）----
+项目/*/04-结果/modes_disp.csv
+项目/*/04-结果/*_nodes.csv
 
 # ---- pip 临时目录（沙箱残留，忽略）----
 tools/tmp/

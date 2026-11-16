@@ -95,6 +95,7 @@ FreeCAD.saveParameter()
 | 悬臂梁全流程（`项目\001-悬臂梁静力分析`） | 碳钢 100×10×10 mm、端部 100 N：δ=0.19043 mm（理论 0.19048）、跨中 30.03 MPa（理论 30）、固定端最大 59.31/全场 60.88 MPa（理论 60）；ccx 2.22 与 2.23 结果一致 |
 | L 形支架全流程（`项目\002-L形支架静力分析`） | 底板 100×60×8 + 立板 8×60×80 + R8 + 4×Ø9、顶面 500 N 沿 −X：顶面挠度 0.1525 mm（手算 0.1587，−3.6%）、全场最大 61.68 MPa @ R8 圆角（手算 62.5，−1.3%）、SF=235/61.7=3.8；C3D10 36325 节点、95100 方程 |
 | 带孔板网格收敛（`项目\003-带孔板应力集中与网格收敛`） | 板 50×120×10、中心 Ø16、顶面 20 MPa（合力 10 kN 沿 +Y）、底面固定：四档网格 6/4/2.5/1.5 mm → σ_max = 66.50 / 68.81 / 67.91 / 68.97 MPa；**收敛值 68.6±0.6 MPa，Kt=2.33±0.02（二维理论 2.31，+1.5%）**；1.5 mm 档 132351 节点 / 85930 个 C3D10 |
+| 圆盘模态（`项目\004-圆盘模态分析`） | 等厚圆盘 R=100、t=6、ρ=7.9e-9 t/mm³、侧面 r=100 全固定：4 mm 网格（34664 节点 / 17410 个 C3D10）前 10 阶 = 1513.82 / 3125.21 / 3125.37 / 5080.46 / 5080.71 / 5780.10 / 7358.59 / 7358.89 / 8729.33 / 8729.98 Hz；**对 Mindlin 中厚板理论平均 −0.48%**（对 Kirchhoff 平均 −2.39%，偏差随阶次单调增大）；三档网格 4/3/2 mm 极差 0.22–0.48%、h=2mm 相对 Richardson 外推残差 <0.10%；4 组简并对 (1,1)(2,1)(3,1)(1,2) 频率差 ≤0.007% |
 
 ## 6. 已知坑（都是踩过的，别再踩）
 
@@ -119,6 +120,12 @@ FreeCAD.saveParameter()
 19. **FreeCAD 1.1 的 Gmsh 网格包装不可用**：`femmesh.gmshtools.GmshTools(mesh).create_mesh()` 只是 `run(True)`，走 **QProcess 异步**，立刻返回 None 且不报错；它内部命令是 `gmsh -v 3 - <shape2mesh.geo>`（`F:\FreeCAD\Mod\Fem\femmesh\gmshtools.py:215`、`:1815`），那个 `-` 参数在 Windows 下让 gmsh 什么都不生成（只留下 `.brep` 和 `.geo`）。**绕行三步**：① `gt = GmshTools(mesh); gt.prepare()` 只写 brep+geo（不跑 gmsh）；② 命令行 `F:\FreeCAD\bin\gmsh.exe shape2mesh.geo -3 -format unv -o Cut_Mesh.unv`（在 `03-计算\ccx\<docName>\<meshName>\` 里跑）；③ `mesh.FemMesh = Fem.read(<unv 路径>)` + `doc.recompute()`，物理组（`Face2_Nodes` 等）会保留，约束/载荷仍能映射。`Fem.read` 支持 `.unv`（`F:\FreeCAD\Mod\Fem\Init.py:66`）。
 20. **FEM 工作台的 GUI 命令经常发灰**（`模型 → 新建分析`、`模型 → 材质` 整串子菜单）：多在焦点落在 Python 控制台或存在未关闭的任务对话框时发生。**直接走控制台**：`ObjectsFem.makeAnalysis(doc,"Analysis")`、`ObjectsFem.makeMaterialSolid(doc,"MaterialSolid")`、`ObjectsFem.makeSolverCalculiXCcxTools(doc,"SolverCcxTools")`、`ObjectsFem.makeMeshGmsh(doc,"FEMMeshGmsh")`。注意控制台建出来的对象默认与 `Analysis` **平级（游离）**，必须 `Analysis.addObject(obj)` 才会参与求解。
 21. **无界面跑 FEM 求解用 `run.run_fem_solver`**：`from femsolver import run; run.run_fem_solver(doc.getObject('SolverCcxTools'), working_dir=r"...\03-计算\ccx", blocking=True)`（`F:\FreeCAD\Mod\Fem\femsolver\run.py:75`，`blocking=True` 才会等 ccx 跑完）。跑之前先 `Ctrl+S`。首选项里 `ccxBinaryPath` / `CustomDirectoryPath` 常常残留旧绝对路径（本例曾指向 `F:\FreeCAD\bin\ccx.EXE` 和 002 项目的旧目录），必须逐个核对。
+22. **网格对象必须放进 Analysis 容器，否则「写入 .inp」必失败**：`Fem/femtools/membertools.py:133-152` 的 `get_mesh_to_solve(analysis)` 只遍历 `analysis.Group` 找 `Fem::FemMeshObject`，找不到返回 `(None, "FEM: no mesh object found in analysis.")`。GUI 里把网格对象**拖到 Analysis 那一行上松手**；脚本里 `Analysis.addObject(mesh)`。核对：`[o.Name for o in doc.Analysis.Group]` 里要有网格。
+23. **模态分析的三个必备项**：① 材料必须有 **密度**（`.inp` 里要有 `*DENSITY`，钢 `7.9E-09` t/mm³；`write_femelement_material.py:38-40` 的 `is_density_needed()` 在 `analysis_type=="frequency"` 时自动返回 True，材料卡写 `7900 kg/m^3` 会自动换算）；② **不能留外载荷**（`*CLOAD` 要连 `**` 注释行一起删干净，否则残留节点行触发 `*ERROR reading *BOUNDARY`）；③ 频率在 `.dat` 的 `EIGENVALUE OUTPUT` 表、振型在 `.frd` 的位移场，**`.dat` 表头字母间有空格**（`E I G E N V A L U E   O U T P U T`），解析前要 `line.replace(" ","")`。
+24. **`.frd` 的结构化解析**：`-1` 行在节点块、单元块、结果块里含义不同，必须用状态机按 `2C`/`3C`/`-4` 切换；`2C`/`3C` 前面有空格，判据用 `line.strip()[:2]` 而不是 `startswith(" 2C")`；模态号在 `1PMODE`（不是 `1PSTEP`，后者是输出块序号 = 阶数 × 结果类数）；频率在 `100CL` 行的 `toks[2]`。
+25. **CalculiX 输入卡每行最多 16 个条目**：`*NSET`/`*ELSET` 一次写几千个 id 会报 `*ERROR in splitline: there should not be more than 16 entries in a line`。脚本里统一按每行 10 个写（`write_id_lines(fh, ids, per=10)`）。
+26. **`freecadcmd.exe` 跑中文路径下的脚本会静默崩溃**（输出只有 `Application unexpectedly terminated`、exit 1、无 traceback）：headless 脚本要么放 `tools\tmp\` 这类 ASCII 路径，要么用 `freecadcmd <脚本路径>` 而不是 `-c "exec(open(...).read())"`（后者也崩）。脚本里的 `print()` 可能丢失，**可靠做法是自己写日志文件** + `traceback.format_exc()`。
+27. **`FemMesh.Groups` 是组 id 的 tuple，不是字典**：用 `fm.Groups` 得到 `(1,2,...)`，名字用 `fm.getGroupName(gid)`；数个数用 `len(fm.Faces)` / `len(fm.Volumes)` / `len(fm.Edges)`（没有 `FacesCount` 这类属性）。
 
 ## 7. 更新策略与「检查更新」标准动作
 
