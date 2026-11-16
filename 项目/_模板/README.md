@@ -1,6 +1,15 @@
 # {{项目名称}}
 
 > 创建日期：{{日期}} ｜ 单位制：mm-N-MPa
+>
+> **开工第一步（必做，`AGENTS.md` R3 / §3.1）**：把 FEM 工作目录设成纯 ASCII 路径，否则 Gmsh 必报 `Unable to open file`（中文路径被按 GBK 解析）。在 FreeCAD 控制台执行：
+> ```python
+> p = FreeCAD.ParamGet("User parameter:BaseApp/Preferences/Mod/Fem/General")
+> p.SetBool("UseCustomDirectory", 1); p.SetBool("UseTempDirectory", 0)
+> p.SetString("CustomDirectoryPath", r"D:\E\Model\fem<编号>")
+> FreeCAD.saveParameter()
+> ```
+> 几何/网格对象的内部 Name 也必须是 ASCII（中文 Label 可以）。
 
 ## 1. 项目概览
 
@@ -56,6 +65,7 @@
 
 - 结论：<!-- -->
 - 关键假设：<!-- 简化、忽略的因素 -->
+- 工具局限对结果的影响：<!-- 若本项目触发过 AGENTS.md R1 的换工具建议，必须在此写明该局限如何影响结论可信度 -->
 - 后续工作：<!-- -->
 
 ## 8. 变更记录
